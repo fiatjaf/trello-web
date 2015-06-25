@@ -2,6 +2,13 @@ An alternative to [Trello's client.js](https://trello.com/docs/gettingstarted/cl
 
 All calls return promises (with [lie](https://www.npmjs.com/package/lie)).
 
+### Install with
+
+```
+npm install trello-browser
+```
+
+
 ```coffeescript
 Trello = require 'trello-browser'
 trello = new Trello TRELLO_API_KEY
