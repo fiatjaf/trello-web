@@ -2,9 +2,9 @@
   "name": "trello-browser",
   "version": "0.0.2",
   "description": "Simple Trello client for the browser that returns promises.",
-  "main": "index.coffee",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "coffee -c --bare *.coffee"
   },
   "keywords": [
     "trello",
@@ -15,15 +15,9 @@
     "authorization",
     "authentication"
   ],
-  "browserify": {
-    "transform": [
-      "coffeeify"
-    ]
-  },
   "author": "Giovanni T. Parra",
   "license": "MIT",
   "dependencies": {
-    "coffeeify": "^1.1.0",
     "lie": "^2.9.1",
     "superagent": "fiatjaf/superagent-cors",
     "superagent-promise": "^1.0.0",
