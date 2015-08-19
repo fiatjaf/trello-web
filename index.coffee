@@ -67,3 +67,4 @@ class Trello
     ).then((res) -> res.body)
 
 module.exports = Trello
+module.exports.superagent = superagent
