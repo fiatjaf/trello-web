@@ -47,6 +47,16 @@ class Trello
         req = req
           .query(key: self.key, token: self.token)
           .query(data)
+      else if data.file and -1 != path.indexOf 'attachments'
+        req = req
+          .field('name', data.name)
+          .field('mimeType', data.mimeType)
+          .field('key', self.key)
+          .field('token', self.token)
+        if typeof data.file == 'string'
+          req = req.attach('file', new File([data.file], data.name, {type: data.mimeType}), data.name)
+        else if typeof data.file == 'object' and data.size
+          req = req.attach('file', data.file, data.name)
       else
         req = req
           .send(key: self.key, token: self.token)

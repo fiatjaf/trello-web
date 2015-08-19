@@ -49,4 +49,17 @@ trello.post('/1/cards/21838932983/actions/comments', {text: 'hello'}).then(-> co
 trello.put('/1/cards/2342632532532/desc', {value: 'hello world!'}).then(-> console.log 'updated description')
 ```
 
+When uploading attachments to `/1/cards/:id/attachments`, you can pass a [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object or a string to be turned into a file:
+
+```coffeescript
+file = 'eat tomatoes.'
+// or file = fileInput.files[0]
+
+trello.post('/1/cards/32478324/attachments', {
+  name: 'tomato.txt',
+  mimeType: 'text/plain',
+  file: file
+}).then(console.log.bind console)
+```
+
 ### LICENSE IS MIT
