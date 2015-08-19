@@ -25,7 +25,7 @@ class Trello
     opts = extend defaults, opts
 
     return new Promise (resolve, reject) ->
-      popup = window.open "https://trello.com/1/authorize?response_type=token&key=#{self.key}&return_url=#{location.href}&callback_method=postMessage&scope=#{(k for k, e of opts.scope when e).join(',')}&expiration=#{opts.expiration}&name=#{opts.name}", 'trello', "height=606,width=405,left=#{window.screenX + (window.innerWidth - 420)/2},right=#{window.screenY + (window.innerHeight - 470)/2}"
+      popup = window.open "https://trello.com/1/authorize?response_type=token&key=#{self.key}&return_url=#{location.protocol}//#{location.host}#{location.pathname}#{location.search}&callback_method=postMessage&scope=#{(k for k, e of opts.scope when e).join(',')}&expiration=#{opts.expiration}&name=#{opts.name.replace(/ /g, '+')}", 'trello', "height=606,width=405,left=#{window.screenX + (window.innerWidth - 420)/2},right=#{window.screenY + (window.innerHeight - 470)/2}"
 
       window.addEventListener 'message', (e) ->
         clearTimeout timeout
