@@ -54,7 +54,13 @@ class Trello
           .field('key', self.key)
           .field('token', self.token)
         if typeof data.file == 'string'
-          req = req.attach('file', new File([data.file], data.name, {type: data.mimeType}), data.name)
+          if window.Blob
+            req = req.attach('file', new File([data.file], data.name, {type: data.mimeType}), data.name)
+          else
+            # this does not work. need help.
+            req = req
+              .set('Content-Type': 'boundary=----WebKitFormBoundarygZLBN6gxSW5OC5W1')
+              .send("""------WebKitFormBoundarygZLBN6gxSW5OC5W1\r\nContent-Disposition: form-data; name="name"\r\n\r\n#{data.name}\r\n------WebKitFormBoundarygZLBN6gxSW5OC5W1\r\nContent-Disposition: form-data; name="mimeType"\r\n\r\n#{data.mimeType}\r\n------WebKitFormBoundarygZLBN6gxSW5OC5W1\r\nContent-Disposition: form-data; name="key"\r\n\r\n#{self.key}\r\n------WebKitFormBoundarygZLBN6gxSW5OC5W1\r\nContent-Disposition: form-data; name="token"\r\n\r\n#{self.token}\r\n------WebKitFormBoundarygZLBN6gxSW5OC5W1\r\nContent-Disposition: form-data; name="file"; filename="#{data.name}"\r\nContent-Type: application/octet-stream\r\n\r\n#{data.file}\r\n------WebKitFormBoundarygZLBN6gxSW5OC5W1--\r\n""")
         else if typeof data.file == 'object' and data.size
           req = req.attach('file', data.file, data.name)
       else

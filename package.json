@@ -1,6 +1,6 @@
 {
   "name": "trello-browser",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple Trello client for the browser that returns promises.",
   "main": "index.js",
   "scripts": {
