@@ -61,5 +61,3 @@ trello.post('/1/cards/32478324/attachments', {
   file: file
 }).then(console.log.bind console)
 ```
-
-### LICENSE IS MIT
