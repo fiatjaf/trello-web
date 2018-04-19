@@ -1,0 +1,12 @@
+{
+  "name": "trello-web",
+  "version": "1.0.0",
+  "description": "Trello client intended to be used in browsers. Does popup auth.",
+  "main": "index.js",
+  "author": "Giovanni T. Parra",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiatjaf/trello-web.git"
+  }
+}
