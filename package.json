@@ -1,6 +1,6 @@
 {
   "name": "trello-web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Trello client intended to be used in browsers. Does popup auth.",
   "main": "index.js",
   "author": "Giovanni T. Parra",

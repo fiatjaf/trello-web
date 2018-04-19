@@ -31,6 +31,7 @@ class Trello {
   }
 
   req (method, path, data) {
+    data = data || {}
     data.key = this.key
     data.token = this.token
     let qs = new URLSearchParams()
