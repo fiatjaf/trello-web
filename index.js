@@ -12,7 +12,7 @@ class Trello {
     let scope = opts.scope || {read: true, write: true, account: false}
 
     return new Promise((resolve, reject) => {
-      let popup = window.open(`https://trello.com/1/authorize?response_type=token&key=${this.key}&return_url=${location.protocol}//${location.host}${location.pathname}${location.search}&callback_method=postMessage&scope=${Object.keys(scope).filter(k => scope[k]).join(',')}&expiration=${expiration}&name=${name}", 'trello', "height=606,width=405,left=${window.screenX + (window.innerWidth - 420) / 2},right=${window.screenY + (window.innerHeight - 470) / 2}`)
+      let popup = window.open(`https://trello.com/1/authorize?response_type=token&key=${this.key}&return_url=${location.protocol}//${location.host}${location.pathname}${location.search}&callback_method=postMessage&scope=${Object.keys(scope).filter(k => scope[k]).join(',')}&expiration=${expiration}&name=${name}`, 'trello', `height=606,width=405,left=${window.screenX + (window.innerWidth - 420) / 2},right=${window.screenY + (window.innerHeight - 470) / 2}`)
 
       var timeout = setTimeout(() => {
         popup.close()
