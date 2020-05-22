@@ -19,6 +19,13 @@ class Trello {
         reject()
       }, 60000)
 
+      var popupTick = setInterval(function() {
+        if (popup.closed) {
+          clearInterval(popupTick);
+          reject();
+        }
+      }, 500);
+  
       window.addEventListener('message', e => {
         if (typeof e.data === 'string') {
           clearTimeout(timeout)
