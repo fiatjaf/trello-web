@@ -1,31 +1,45 @@
-/* global fetch, URLSearchParams */
+/* global fetch */
 
 class Trello {
-  constructor (key, token) {
+  constructor(key, token) {
     this.key = key
     this.token = token
   }
 
-  auth (opts) {
+  auth(opts) {
     let name = (opts.name || 'My App').replace(/ /g, '+')
     let expiration = opts.expiration || '1hour'
     let scope = opts.scope || {read: true, write: true, account: false}
 
     return new Promise((resolve, reject) => {
-      let popup = window.open(`https://trello.com/1/authorize?response_type=token&key=${this.key}&return_url=${location.protocol}//${location.host}${location.pathname}${location.search}&callback_method=postMessage&scope=${Object.keys(scope).filter(k => scope[k]).join(',')}&expiration=${expiration}&name=${name}`, 'trello', `height=606,width=405,left=${window.screenX + (window.innerWidth - 420) / 2},right=${window.screenY + (window.innerHeight - 470) / 2}`)
+      let popup = window.open(
+        `https://trello.com/1/authorize?response_type=token&key=${
+          this.key
+        }&return_url=${location.protocol}//${location.host}${
+          location.pathname
+        }${location.search}&callback_method=postMessage&scope=${Object.keys(
+          scope
+        )
+          .filter(k => scope[k])
+          .join(',')}&expiration=${expiration}&name=${name}`,
+        'trello',
+        `height=606,width=405,left=${window.screenX +
+          (window.innerWidth - 420) / 2},right=${window.screenY +
+          (window.innerHeight - 470) / 2}`
+      )
 
       var timeout = setTimeout(() => {
         popup.close()
-        reject(new Error("Trello not authentified."))
+        reject(new Error('Trello pop-up closed.'))
       }, 60000)
 
       var popupTick = setInterval(function() {
         if (popup.closed) {
-          clearInterval(popupTick);
-          reject(new Error("Trello not authentified."));
+          clearInterval(popupTick)
+          reject(new Error('Trello pop-up closed.'))
         }
-      }, 500);
-  
+      }, 500)
+
       window.addEventListener('message', e => {
         if (typeof e.data === 'string') {
           clearTimeout(timeout)
@@ -37,7 +51,7 @@ class Trello {
     })
   }
 
-  req (method, path, data) {
+  req(method, path, data) {
     data = data || {}
     data.key = this.key
     data.token = this.token
@@ -61,23 +75,22 @@ class Trello {
       url += '?' + qs.toString()
     }
 
-    return fetch(url, init)
-      .then(r => r.json())
+    return fetch(url, init).then(r => r.json())
   }
 
-  get (path, data) {
+  get(path, data) {
     return this.req('GET', path, data)
   }
 
-  head (path, data) {
+  head(path, data) {
     return this.req('HEAD', path, data)
   }
 
-  post (path, data) {
+  post(path, data) {
     return this.req('POST', path, data)
   }
 
-  put (path, data) {
+  put(path, data) {
     return this.req('PUT', path, data)
   }
 }
