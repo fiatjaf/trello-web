@@ -16,9 +16,16 @@ class Trello {
 
       var timeout = setTimeout(() => {
         popup.close()
-        reject()
+        reject(new Error("Trello not authentified."))
       }, 60000)
 
+      var popupTick = setInterval(function() {
+        if (popup.closed) {
+          clearInterval(popupTick);
+          reject(new Error("Trello not authentified."));
+        }
+      }, 500);
+  
       window.addEventListener('message', e => {
         if (typeof e.data === 'string') {
           clearTimeout(timeout)
